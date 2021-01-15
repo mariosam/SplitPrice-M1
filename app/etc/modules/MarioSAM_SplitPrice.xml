@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * XML :: especify local (community) and make it active/desactive.
+ *
+ * Module to split price on frontend.
+ *
+ * @author      MarioSAM <eu@mariosam.com.br>
+ * @date        Jan, 2021
+ * @version     1.0.0
+ */
+-->
+<config>
+    <modules>
+        <MarioSAM_SplitPrice>
+            <active>true</active>
+            <codePool>community</codePool>
+        </MarioSAM_SplitPrice>
+    </modules>
+</config>

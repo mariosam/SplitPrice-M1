@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * XML adminhtml
+ *
+ * Set this module to admin config.
+ *
+ * @author      MarioSAM <eu@mariosam.com.br>
+ * @date        Jan, 2021
+ * @version     1.0.0
+ */
+-->
+<config>
+    <!-- configure levels of permission in admin -->
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <splitprice translate="title" module="splitprice">
+                                        <title>Split Price</title>
+                                    </splitprice>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

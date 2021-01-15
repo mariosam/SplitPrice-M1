@@ -1,0 +1,64 @@
+<?php
+/**
+ * HTML x_list
+ * 
+ * @author      MarioSAM <eu@mariosam.com.br>
+ * @version     1.0.0
+ * @date        2021/01
+ * @copyright   Blog do Mario SAM
+ * 
+ * read by JS all the prices and calculate the value splits dinamically.
+ */
+
+/** inicializando model e variaveis */
+if ( $this->getEnabled() ) {
+
+if ( $this->getShowInCatalog() ) {
+
+$_parcelas = $this->getProductPriceX();
+$_taxas = $this->getProductPriceTax();
+$_position = $this->getCatalogPosition(); //por enquanto sem uso!
+
+/** usado para formatar saida do preco */
+$_priceFormat = Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getJsPriceFormat());
+?>
+
+<?php /* CSS styles */ ?>
+<style type="text/css">
+<?php echo $this->getCssCustomCatalog(); ?>
+</style>
+
+<?php /* Javascript controls */ ?>
+<script type="text/javascript">
+//<![CDATA[
+document.observe("dom:loaded", function() {
+    <?php /* inicializa parametros do php no javascript */ ?>
+    var parcelas = <?php echo $_parcelas; ?>;
+    var parcelado = 0;
+    var taxas = <?php echo $_taxas; ?>;
+
+    <?php /* para cada preco encontrado dentro da pagina verifique */ ?>
+    var els = document.getElementsByClassName("price");
+    Array.prototype.forEach.call(els, function(el) {
+        var valor = el.textContent;
+        valor = valor.replace(/([^\d.,])+/gim, ''); //remover os simbolos monetarios
+        
+        <?php /* calcula as parcelas (com taxas se necessario) */ ?>
+        parcelado = valor / parcelas;
+        if ( taxas > 0 ) { parcelado = parcelado + (parcelado/100 * taxas); }
+        
+        <?php /* formata o preco de saida novamente */ ?>
+        var price = formatCurrency(parcelado, <?php echo $_priceFormat; ?>);
+        el.innerHTML += "<p><?= __('or %1x of ',$_parcelas) ?>"+price+"</p>";
+    });
+
+    <?php echo $this->getJsCustomCatalog(); ?>
+});
+//]]>
+</script>
+  
+<?php /* HTLM displays  */ ?>
+<div id="x_list_prices"></div>
+
+<?php } /* getShowInCatalog */ ?>
+<?php } /* getEnabled */ ?>

@@ -1,0 +1,57 @@
+<?php
+/**
+ * HTML x_details
+ * 
+ * @author      MarioSAM <eu@mariosam.com.br>
+ * @version     1.0.0
+ * @date        2021/01
+ * @copyright   Blog do Mario SAM
+ * 
+ * show the split values for price in product detail page using JS to define local.
+ */
+
+/** inicializando model e variaveis */
+if ( $this->getEnabled() ) {
+
+if ( $this->getShowInProduct() ) {
+
+$_parcelas = $this->getProductPriceX();
+$_price = $this->getProductPrice();
+$_taxas = $this->getProductPriceTax();
+$_position = $this->getProductPosition();
+if ( $_price > 0 ) {
+?>
+<?php /* CSS styles */ ?>
+<style type="text/css">
+<?php echo $this->getCssCustomProduct(); ?>
+</style>
+
+<?php /* Javascript controls */ ?>
+<script type="text/javascript">
+//<![CDATA[
+document.observe("dom:loaded", function() {
+    <?php /* identifica onde ser inserido a msg (splits values) */ ?>
+    var dTip = '<?php echo $_position; ?>';
+    var pDiv = dTip.substring(1);
+    if ( dTip.startsWith('#') ) {
+        document.getElementById( pDiv ).appendChild( $("x_details_prices") );
+    } else {
+        document.getElementsByClassName( pDiv )[0].appendChild( $("x_details_prices") );
+    }
+
+    <?php echo $this->getJsCustomProduct(); ?>
+});
+//]]>
+</script>
+
+<?php /* HTLM displays  */ ?>
+<?php $_parcelado = $_price/$_parcelas; ?>
+<?php if ( $_taxas > 0 ) { $_parcelado = $_parcelado + ($_parcelado/100 * $_taxas); } ?>
+<?php //mostrar todas as parcelas??? ?>
+<div id="x_details_prices">
+    <p><span><?= __('or %1x of %2',$_parcelas,Mage::helper('core')->currency($_parcelado, true, false)) ?></span></p>
+</div>
+
+<?php } /* $_price > 0 */ ?>
+<?php } /* getShowInProduct */ ?>
+<?php } /* getEnabled */ ?>

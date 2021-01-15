@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * XML config
+ * 
+ * Set basic information to fields of this module.
+ *
+ * @author      MarioSAM <eu@mariosam.com.br>
+ * @date        Jan, 2021
+ * @version     1.0.0
+ */
+-->
+<config>
+    <!-- actual version of this module -->
+    <modules>
+        <MarioSAM_SplitPrice>
+            <version>1.0.0</version>
+        </MarioSAM_SplitPrice>
+    </modules>
+    <!-- configuration module class to this module -->
+    <global>
+        <blocks>
+            <splitprice>
+                <class>MarioSAM_SplitPrice_Block</class>
+            </splitprice>
+        </blocks>
+        <helpers>
+            <splitprice>
+                <class>MarioSAM_SplitPrice_Helper</class>
+            </splitprice>
+        </helpers>
+        <models>
+             <splitprice>
+                <class>MarioSAM_SplitPrice_Model_Config_Source</class>
+             </splitprice>
+        </models>
+    </global>
+    <default>
+        <!-- Set default values for fields of this module -->
+        <splitprice>
+            <split_price_config>
+                <enabled>0</enabled>
+                <maximum_splits>2</maximum_splits>
+                <show_all>0</show_all>
+                <base_price></base_price>
+                <add_tax></add_tax>
+            </split_price_config>
+            <split_price_presentation>
+                <show_catalog>0</show_catalog>
+                <show_catalog_position>.price</show_catalog_position>
+                <css_catalog><![CDATA[.price p {}]]></css_catalog>
+                <js_catalog></js_catalog>
+                <show_product>0</show_product>
+                <show_product_position>.price-info</show_product_position>
+                <css_product><![CDATA[#x_details_prices p {}]]></css_product>
+                <js_product></js_product>
+                <show_cart>0</show_cart>
+                <show_cart_position>.cart-totals</show_cart_position>
+                <css_cart><![CDATA[#x_cart_prices p {}]]></css_cart>
+                <js_cart></js_cart>
+            </split_price_presentation>
+            <split_price_next_version>
+               <my_contact>eu@mariosam.com.br</my_contact>
+            </split_price_next_version>
+        </splitprice>
+    </default>
+    <frontend>
+        <!-- Set the XML resposable for update the theme layout -->
+        <layout>
+            <updates>
+                <splitprice>
+                    <file>mariosam_splitprice.xml</file>
+                </splitprice>
+            </updates>
+        </layout>
+        <!-- Call the CSV translation keys to frontend words -->
+        <translate>
+            <modules>
+                <splitprice>
+                    <files>
+                        <default>MarioSAM_SplitPrice.csv</default>
+                    </files>
+                </splitprice>
+            </modules>
+        </translate>
+    </frontend>
+    <!-- Call the CSV translation keys to backend words -->
+    <adminhtml>
+        <translate>
+            <modules>
+                <splitprice>
+                    <files>
+                        <default>MarioSAM_SplitPrice.csv</default>
+                    </files>
+                </splitprice>
+            </modules>
+        </translate>
+    </adminhtml>
+</config>

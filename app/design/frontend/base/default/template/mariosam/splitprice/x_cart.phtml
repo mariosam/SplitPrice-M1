@@ -1,0 +1,59 @@
+<?php
+/**
+ * HTML x_cart
+ * 
+ * @author      MarioSAM <eu@mariosam.com.br>
+ * @version     1.0.0
+ * @date        2021/01
+ * @copyright   Blog do Mario SAM
+ * 
+ * read the grand total value dinamically using JS and calcule the splits values.
+ */
+
+/** inicializando model e variaveis */
+if ( $this->getEnabled() ) {
+
+if ( $this->getShowInCart() ) {
+    
+$_parcelas = $this->getProductPriceX();
+$_price = $this->getCartPrice();
+$_taxas = $this->getProductPriceTax();
+$_position = $this->getCartPosition();
+
+if ( $_price > 0 ) { 
+?>
+<?php /* CSS styles */ ?>
+<style type="text/css">
+#x_cart_prices { display: inline-block; width: 100%; }
+
+<?php echo $this->getCssCustomCart(); ?>
+</style>
+
+<?php /* Javascript controls */ ?>
+<script type="text/javascript">
+//<![CDATA[
+document.observe("dom:loaded", function() {
+    <?php /* onde na tela sera posicionado o resultado das parcelas */ ?>
+    var dTip = '<?php echo $_position; ?>';
+    var pDiv = dTip.substring(1);
+    if ( dTip.startsWith('#') ) {
+        document.getElementById( pDiv ).appendChild( $("x_cart_prices") );
+    } else {
+        document.getElementsByClassName( pDiv )[0].appendChild( $("x_cart_prices") );
+    }
+
+    <?php echo $this->getJsCustomProduct(); ?>
+});
+//]]>
+</script>
+
+<?php /* HTLM displays  */ ?>
+<?php $_parcelado = $_price/$_parcelas; ?>
+<?php if ( $_taxas > 0 ) { $_parcelado = $_parcelado + ($_parcelado/100 * $_taxas); } ?>
+<div id="x_cart_prices">
+    <p><span><?= __('Pay in %1x of %2',$_parcelas,Mage::helper('core')->currency($_parcelado, true, false)) ?></span></p>
+</div>
+
+<?php } /* $_price>0 */ ?>
+<?php } /* getShowInCart */ ?>
+<?php } /* getEnabled */ ?>

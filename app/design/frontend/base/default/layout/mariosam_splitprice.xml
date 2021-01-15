@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * XML cms_index_index, catalog_category_view, checkout_cart_index, catalog_product_view
+ * 
+ * @author      MarioSAM <eu@mariosam.com.br>
+ * @version     1.0.0
+ * @date        2021/01
+ * @copyright   Blog do Mario SAM
+ * 
+ * Insert the new file into the Magento theme to load the code.
+ */
+-->
+<layout version="1.0.0">
+    <!-- apenas em paginas de visualizacao de produto -->
+    <catalog_product_view>
+        <reference name="content">
+            <block type="splitprice/splitpriceblock" name="split_x_price" template="mariosam/splitprice/x_details.phtml" ifconfig="splitprice/split_price_presentation/show_product" />
+        </reference>
+    </catalog_product_view>
+    <!-- load the module page to shopping cart page -->
+    <checkout_cart_index>
+        <reference name="content">
+            <block type="splitprice/splitpriceblock" name="split_x_price" template="mariosam/splitprice/x_cart.phtml" ifconfig="splitprice/split_price_presentation/show_cart" />
+        </reference>
+    </checkout_cart_index>
+    <!-- -->
+    <catalog_category_view>
+        <reference name="content">
+            <block type="splitprice/splitpriceblock" name="split_x_price" template="mariosam/splitprice/x_list.phtml" ifconfig="splitprice/split_price_presentation/show_catalog" />
+        </reference>
+    </catalog_category_view>
+    <!-- load the module page to home page -->
+    <cms_index_index>
+        <reference name="content">
+            <block type="splitprice/splitpriceblock" name="split_x_price" template="mariosam/splitprice/x_list.phtml" ifconfig="splitprice/split_price_presentation/show_catalog" />
+        </reference>
+    </cms_index_index>
+</layout>
